@@ -35,7 +35,6 @@ func handleEvent(event Event, config c.Config, comps map[int]*Competitor, out *[
 	if handler, exists := eventHandlers[event.Id]; exists {
 		handler(event, comp, config, out, logger)
 	}
-	comp.LastEventTime = event.Time
 }
 
 // 1. A competitor registered
@@ -176,6 +175,7 @@ func handleCompLeftPenalty(event Event, comp *Competitor, config c.Config, out *
 // 10. A competitor ended the main lap
 func handleCompLapEnd(event Event, comp *Competitor, config c.Config, out *[]Event, logger *log.Logger) {
 	comp.LapsCompleted++
+	comp.LapTimes = append(comp.LapTimes, event.Time.Sub(comp.LapStartTime))
 
 	// Finish state
 	if comp.LapsCompleted == config.Laps {

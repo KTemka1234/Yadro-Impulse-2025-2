@@ -14,6 +14,7 @@ type Competitor struct {
 	StartTime         time.Time
 	ActualStartTime   time.Time
 	LapStartTime      time.Time
+	LapTimes          []time.Duration
 	LapsCompleted     int
 	InPenalty         bool
 	PenaltyStart      time.Time
@@ -25,7 +26,6 @@ type Competitor struct {
 	DSQ               bool
 	Hits              int
 	EndTime           time.Time
-	LastEventTime     time.Time
 }
 
 type FiringSession struct {
